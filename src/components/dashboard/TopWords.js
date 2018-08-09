@@ -2,21 +2,24 @@ import React from 'react';
 import {connect} from 'react-redux';
 import _ from 'underscore';
 
+import TopWordsItem from './TopWordsItem';
+
 const getLastFiveWordsLearned = (words) => {
-    return 
-        _.chain(words)
-        .sortBy((w) => w.learnedDate)
-        .first(5)
-        .value();
+  return words;
+    // return 
+    //     _.chain(words)
+    //     .sortBy((w) => w.learnedDate)
+    //     .first(5)
+    //     .value();
 }
 
 const TopWords = ({words}) => (
   <div>
       {
-        words.map((w) => {
+        words.map((w) => { 
           return (
-            <li key={w.name}>{w.name}</li>
-          )  
+            <TopWordsItem key={w.name} word={w}/>
+          )
         })
       }
   </div>
