@@ -6,15 +6,15 @@ import WordDetailDefinition from './WordDetailDefinition';
 
 class WordDetail extends React.Component {
     state = {
-        currentDefinition: 0
+        keyDefinitionVisible: 0
     }
 
     onDefinitionClick(key) {
-        this.setState({ currentDefinition: key });
+        this.setState({ keyDefinitionVisible: key });
     }
 
     getVisibleDefinition = () => {
-        let wordDefinition = _.find(this.props.word.results, (item, key) => key === this.state.currentDefinition);
+        let wordDefinition = _.find(this.props.word.results, (item, key) => key === this.state.keyDefinitionVisible);
         return <WordDetailDefinition wordDefinition={wordDefinition} />
     }
 
