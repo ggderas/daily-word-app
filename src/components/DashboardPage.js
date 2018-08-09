@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import WordOfDay from './dashboard/WordOfDay';
 import TopWords from './dashboard/TopWords';
+
 
 const DashboardPage = () => (
   <div>
@@ -10,5 +12,9 @@ const DashboardPage = () => (
   </div>
 );
 
-export default DashboardPage;
+const mapStateToProps = (state, props) => {
+  return  { user: state.user }
+}
+
+export default connect(mapStateToProps, null)(DashboardPage)
 

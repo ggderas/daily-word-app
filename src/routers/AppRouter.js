@@ -19,5 +19,5 @@ const AppRouter = () => (
     </div>
   </Router>
 );
-
+  
 export default AppRouter;
