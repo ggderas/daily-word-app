@@ -1,6 +1,8 @@
 import React from 'react';
 import AppRouter, { history } from '../../routers/AppRouter';
 
+import { FetchWordDetails } from '../../words-api/WordsApi';
+
 class TopWordsItem extends React.Component{
     render() {
         let { word } = this.props;
@@ -13,25 +15,14 @@ class TopWordsItem extends React.Component{
     }
 
     onWordClick(){
-        let {word} = this.props
-        this.APICALL()
+        let {word} = this.props;
+
+        FetchWordDetails(word.name)
         .then((result) => {
-            console.log("result", result);
             history.push({
                 pathname: `/word/${word.name}`,
-                state: result
+                state: result.data
             });
-        })
-    }
-
-    APICALL(){
-        // TODO: Make actual API call
-        return new Promise((resolve) => {
-            resolve({
-                name: "Somethig",
-                synonyms: [],
-                definitions: []
-            })
         })
     }
 }
