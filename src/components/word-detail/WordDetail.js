@@ -25,12 +25,13 @@ class WordDetail extends React.Component {
             <div>
                 <div>
                     <h1>{word.word}</h1>
+                    <h5>{word.pronunciation ? word.pronunciation.all : ""}</h5>
                 </div>
 
 
                 {
                     word.results.map((r, key) => (
-                        <p><button onClick={this.onDefinitionClick.bind(this, key)}>Definition {(key + 1) + ""}</button></p>
+                        <p style={{display: "inline"}} key={key}><button onClick={this.onDefinitionClick.bind(this, key)}>Definition {(key + 1) + ""}</button></p>
                     ))
                 }
 

@@ -14,6 +14,7 @@ import LoadingPage from './components/LoadingPage';
 import DashboardPage from './components/DashboardPage';
 
 import { fetchUserData } from './actions/user';
+import { startFetchRandomWord } from './actions/randomWord';
 
 const store = configureStore();
 const jsx = (
@@ -23,7 +24,10 @@ const jsx = (
 );
 let hasRendered = false;
 
-store.dispatch(fetchUserData());
+store.dispatch(fetchUserData())
+
+let excludeWords = (store.getState().user.words || []).map((w) => w.name);
+store.dispatch(startFetchRandomWord(excludeWords));
 
 const renderApp = () => {
   if (!hasRendered) {
