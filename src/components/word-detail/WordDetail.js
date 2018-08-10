@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import _ from 'underscore';
 import WordDetailDefinition from './WordDetailDefinition';
@@ -23,6 +24,11 @@ class WordDetail extends React.Component {
 
         return (
             <div>
+            
+            <Link className="" to="/">
+                <h1>Home</h1>
+            </Link>
+
                 <div>
                     <h1>{word.word}</h1>
                     <h5>{word.pronunciation ? word.pronunciation.all : ""}</h5>
