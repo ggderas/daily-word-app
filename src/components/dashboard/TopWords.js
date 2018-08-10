@@ -13,7 +13,7 @@ const getLastFiveWordsLearned = (words) => {
     //     .value();
 }
 
-const TopWords = ({words}) => (
+const TopWords = ({words = []}) => (
   <div>
       {
         words.map((w) => { 

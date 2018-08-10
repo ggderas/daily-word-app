@@ -37,4 +37,4 @@ let UserData = {
     ]
 }
 
-export default UserData;
+export default UserData.words;
