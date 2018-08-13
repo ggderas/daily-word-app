@@ -1,4 +1,5 @@
 import database from '../firebase/firebase';
+import moment from 'moment';
 
 export const userAlreadyExists = (uid) => {
     return new Promise((resolve) =>{
@@ -20,7 +21,20 @@ export const addNewUser = (user) => {
 export const getUser = (uid) =>  {
     return new Promise((resolve) =>  {
         database.ref('/users/' + uid).once('value').then((snapshot) => { 
-            resolve(snapshot.val());
+            let user = snapshot.val();
+            user.words  = Object.values(user.words || {});
+
+
+            resolve(user);
         });
     })
+}
+
+export const learnWord = ({uid}, word) => {
+    return new Promise((resolve) =>  {
+        database.ref('/users/' + uid + '/words/' + word).set({
+            name: word,
+            learnedDate: moment().toDate().getTime()
+        });
+    })    
 }

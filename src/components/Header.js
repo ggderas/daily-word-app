@@ -17,10 +17,8 @@ export const Header = ({ startLogout, user }) => (
 );
 
 const mapStateToProps = (state, props) => ({
-    user: mapUserFromAuth(state.auth)
+    user: state.user
 })
-
-const mapUserFromAuth = (uid) => ({ displayName: uid.displayName, email: uid.email});
 
 const mapDispatchToProps = (dispatch) => ({
   startLogout: () => dispatch(startLogout())

@@ -39,11 +39,6 @@ const renderApp = () => {
 
 ReactDOM.render(jsx, document.getElementById('app'));
 
-// userAlreadyExists("sq3coFCmtngGUb6ebIzaBlQu2Lg1").then((itExists) => {
-//   console.log("itExists",itExists)
-// });
-// addNewUser({email: "lmrderas@gmail.com", displayName: "Luis Deras", photoURL: "myPhotoURL.com", uid: "sq3coFCmtngGUb6ebIzaBlQu2Lg1"});
-
 firebase.auth().onAuthStateChanged((user) => {
   let userExists = false;
 
@@ -59,29 +54,17 @@ firebase.auth().onAuthStateChanged((user) => {
         getUser(user.uid).then((result) => {
           store.dispatch(fetchUser(result));
           store.dispatch(startFetchRandomWord(result));
-          console.log("history.location.pathname", history.location.pathname);
 
-          setTimeout(() => {
-            renderApp();
-            if (history.location.pathname === '/') {
-              console.log("here");
-              history.push('/dashboard');
-            }            
-          }, 5000);
+          renderApp();
+          if (history.location.pathname === '/') {
+            console.log("here");
+            history.push('/dashboard');
+          }
 
 
         });
       })
     })
-
-
-    // console.log("history.location.pathname", history.location.pathname);
-    // store.dispatch(login(user));
-    // store.dispatch(startFetchRandomWord(excludeWords));
-    // renderApp();
-    // if (history.location.pathname === '/') {
-    //   history.push('/dashboard');
-    // }
   } else {
     store.dispatch(logout());
     renderApp();

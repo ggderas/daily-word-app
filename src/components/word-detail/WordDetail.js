@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import _ from 'underscore';
 import WordDetailDefinition from './WordDetailDefinition';
 
+import { learnWord } from '../../datasources/users';
+
 class WordDetail extends React.Component {
     state = {
         keyDefinitionVisible: 0
@@ -17,6 +19,13 @@ class WordDetail extends React.Component {
     getVisibleDefinition = () => {
         let wordDefinition = _.find(this.props.word.results, (item, key) => key === this.state.keyDefinitionVisible);
         return <WordDetailDefinition wordDefinition={wordDefinition} />
+    }
+
+    onLearnWord = () =>{
+        const { user, word }  = this.props;
+        learnWord(user, word.word).then((result) => {
+            console.log("result", result);
+        })
     }
 
     render() {
@@ -43,6 +52,8 @@ class WordDetail extends React.Component {
 
                 {this.getVisibleDefinition()}
 
+                <button onClick={this.onLearnWord.bind(this)}>I have learned this word!</button>
+
 
             </div>
         )
@@ -50,7 +61,8 @@ class WordDetail extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-    word: props.location ? props.location.state : {}
+    word: props.location ? props.location.state : {},
+    user: state.user
 })
 
 export default connect(mapStateToProps, null)(WordDetail);
