@@ -32,9 +32,9 @@ export const getUser = (uid) =>  {
 
 export const learnWord = ({uid}, word) => {
     return new Promise((resolve) =>  {
-        database.ref('/users/' + uid + '/words/' + word).set({
-            name: word,
-            learnedDate: moment().toDate().getTime()
-        });
+        let wordObject = { name: word, learnedDate: moment().toDate().getTime() };
+        database.ref('/users/' + uid + '/words/' + word).set(wordObject);
+
+        resolve(wordObject);
     })    
 }

@@ -8,7 +8,7 @@ const WordDetailDefinition = ({ wordDefinition }) => (
         </div>
 
         {
-            wordDefinition.synonyms.length > 0 && (
+            wordDefinition.synonyms  && wordDefinition.synonyms.length > 0 && (
                 <div>
                     <h1>Synonyms</h1>
                     {(wordDefinition.synonyms || []).map((s, key) => <span key={key}>{s}</span>)}

@@ -6,6 +6,7 @@ import _ from 'underscore';
 import WordDetailDefinition from './WordDetailDefinition';
 
 import { learnWord } from '../../datasources/users';
+import { saveWord } from '../../actions/user';
 
 class WordDetail extends React.Component {
     state = {
@@ -22,9 +23,9 @@ class WordDetail extends React.Component {
     }
 
     onLearnWord = () =>{
-        const { user, word }  = this.props;
+        const { user, word, onSaveWord }  = this.props;
         learnWord(user, word.word).then((result) => {
-            console.log("result", result);
+            onSaveWord(result);
         })
     }
 
@@ -63,6 +64,12 @@ class WordDetail extends React.Component {
 const mapStateToProps = (state, props) => ({
     word: props.location ? props.location.state : {},
     user: state.user
-})
+});
 
-export default connect(mapStateToProps, null)(WordDetail);
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        onSaveWord: (word) => { dispatch(saveWord(word)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WordDetail);
