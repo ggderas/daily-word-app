@@ -3,7 +3,7 @@ export const fetchUser  = (user) => ({
     user
 })
 
-export const saveWord = (word) => ({
-    type: 'LEARN_WORD',
-    word
+export const saveUser = (user) => ({
+    type: 'SAVE_USER',
+    user
 })

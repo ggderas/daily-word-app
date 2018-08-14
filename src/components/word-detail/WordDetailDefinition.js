@@ -8,7 +8,7 @@ const WordDetailDefinition = ({ wordDefinition }) => (
         </div>
 
         {
-            wordDefinition.synonyms  && wordDefinition.synonyms.length > 0 && (
+            wordDefinition.synonyms && wordDefinition.synonyms.length > 0 && (
                 <div>
                     <h1>Synonyms</h1>
                     {(wordDefinition.synonyms || []).map((s, key) => <span key={key}>{s}</span>)}
@@ -16,11 +16,16 @@ const WordDetailDefinition = ({ wordDefinition }) => (
             )
         }
 
+        {
+            wordDefinition.examples && wordDefinition.examples.length > 0 && (
+                <div>
+                    <h1>Examples</h1>
+                    {(wordDefinition.examples || []).map((s, key) => <p key={key}>{s}</p>)}
+                </div>
+            )
+        }
 
-        <div>
-            <h1>Examples</h1>
-            {(wordDefinition.examples || []).map((s, key) => <p key={key}>{s}</p>)}
-        </div>
+
 
     </div>
 );

@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import _ from 'underscore';
 import WordDetailDefinition from './WordDetailDefinition';
 
 import { learnWord } from '../../datasources/users';
-import { saveWord } from '../../actions/user';
+import { saveUser } from '../../actions/user';
 
 class WordDetail extends React.Component {
     state = {
@@ -22,38 +23,59 @@ class WordDetail extends React.Component {
         return <WordDetailDefinition wordDefinition={wordDefinition} />
     }
 
-    onLearnWord = () =>{
-        const { user, word, onSaveWord }  = this.props;
+    onLearnWord = () => {
+        const { user, word, onSaveUser } = this.props;
         learnWord(user, word.word).then((result) => {
-            onSaveWord(result);
+            user.words.push(result);
+            onSaveUser(user);
         })
     }
 
+    userAlreadyLearnedThisWord() {
+        let { user, word } = this.props;
+        return _.find((user.words || []), (w) => word.word === w.name) ? true : false;
+    }
+
     render() {
-        let { word } = this.props;
+        let { word, user } = this.props;
+        let learnedWord  = _.find(user.words || [], (w) => w.name === word.word);
+
 
         return (
             <div>
-            
-            <Link className="" to="/">
-                <h1>Home</h1>
-            </Link>
+
+                <Link className="" to="/">
+                    <h1>Home</h1>
+                </Link>
 
                 <div>
                     <h1>{word.word}</h1>
                     <h5>{word.pronunciation ? word.pronunciation.all : ""}</h5>
                 </div>
 
+                {
+                    this.userAlreadyLearnedThisWord() && (
+                        <div>
+                            <h3>You learned this word on {moment(learnedWord.learnedDate).format("LL")}</h3>
+                        </div>
+                    )
+                }
+
 
                 {
                     word.results.map((r, key) => (
-                        <p style={{display: "inline"}} key={key}><button onClick={this.onDefinitionClick.bind(this, key)}>Definition {(key + 1) + ""}</button></p>
+                        <p style={{ display: "inline" }} key={key}><button onClick={this.onDefinitionClick.bind(this, key)}>Definition {(key + 1) + ""}</button></p>
                     ))
                 }
 
                 {this.getVisibleDefinition()}
 
-                <button onClick={this.onLearnWord.bind(this)}>I have learned this word!</button>
+                {
+                    !this.userAlreadyLearnedThisWord() && (
+                        <button onClick={this.onLearnWord.bind(this)}>I have learned this word!</button>
+                    )
+                }
+
 
 
             </div>
@@ -66,9 +88,9 @@ const mapStateToProps = (state, props) => ({
     user: state.user
 });
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
     return {
-        onSaveWord: (word) => { dispatch(saveWord(word)) }
+        onSaveUser: (user) => { dispatch(saveUser(user)) }
     }
 }
 

@@ -1,5 +1,4 @@
 export default (state = {}, action) => {
-  console.log("action",  action);
     switch (action.type) {
       case 'FETCH_RANDOM_WORD':
         return action.randomWord;
