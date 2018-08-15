@@ -1,5 +1,12 @@
 import database from '../firebase/firebase';
 import moment from 'moment';
+import _ from 'underscore';
+
+const userHasLearnedAWordToday = (user) => {
+    const today = moment().format("L");
+
+    return _.find(user.words || [], (w) => today === moment(w.learnedDate).format("L")) ? true : false;    
+}
 
 export const userAlreadyExists = (uid) => {
     return new Promise((resolve) =>{
@@ -23,9 +30,10 @@ export const getUser = (uid) =>  {
         database.ref('/users/' + uid).once('value').then((snapshot) => { 
             let user = snapshot.val();
 
-            if(user)
+            if(user){
                 user.words  = Object.values(user.words || {});
-
+                user.hasAlreadyLearnedAWordToday = userHasLearnedAWordToday(user);
+            }
 
             resolve(user);
         });

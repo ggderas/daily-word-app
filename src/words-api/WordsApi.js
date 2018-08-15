@@ -18,18 +18,21 @@ const FetchWordDetails = (word) => {
 }
 
 const FetchRandomWord = (excludeWords, word) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         axios({
             method: 'GET',
-            url: `https://wordsapiv1.p.mashape.com/words?random=true&hasDetails=typeOf`,
+            url: `https://wordsapiv1.p.mashape.com/words?random=true&partOfSpeech=verb`,
             headers: GetWordsAPIRequiredHeaders()
         }).then(({data}) => {
 
             if(_.contains(excludeWords, data.word))
-                return FetchRandomWord(excludeWords, "another")
+                return FetchRandomWord(excludeWords, data.word)
             else
                 resolve(data);
                 
+        })
+        .catch((ex) =>  {
+            reject(ex);
         })        
     })
 }

@@ -8,13 +8,6 @@ import _ from 'underscore';
 
 class WordOfDay extends React.Component {
 
-    userHasAlreadyLearnedAWordToday() {
-        const { user } = this.props;
-        const today = moment().format("L");
-
-        return _.find(user.words || [], (w) => today === moment(w.learnedDate).format("L")) ? true : false;
-    }
-
     goLearn() {
         let { randomWord } = this.props;
         history.push({
@@ -24,12 +17,12 @@ class WordOfDay extends React.Component {
     }    
 
     render() {
-        let { randomWord } = this.props
+        let { randomWord, user } = this.props
 
         return (
             <div>
                 {
-                    this.userHasAlreadyLearnedAWordToday() ? (
+                    user.hasAlreadyLearnedAWordToday ? (
                         <div>
                             <h4>It looks you already learned a word today buddy!</h4>
                         </div>

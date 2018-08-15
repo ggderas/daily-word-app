@@ -14,7 +14,7 @@ import LoadingPage from './components/LoadingPage';
 import DashboardPage from './components/DashboardPage';
 import LoginPage from './components/LoginPage'
 
-import { fetchUser } from './actions/user';
+import { startFetchUser } from './actions/user';
 import { startFetchRandomWord } from './actions/words';
 
 import { userAlreadyExists, addNewUser, getUser } from './datasources/users';
@@ -34,34 +34,36 @@ const renderApp = () => {
   }
 };
 
-ReactDOM.render(<LoadingPage/>, document.getElementById('app'));
+ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
-firebase.auth().onAuthStateChanged((user) => {
-  let userExists = false;
+const init = (user) => {
+  const userUID = user.uid;
+  userAlreadyExists(userUID).then((exists) => {
+    let promise = new Promise((resolve) => { resolve(); });
+    if (!exists)
+      promise = addNewUser(user);
 
-  console.log("user", user);
-  if (user) {
-
-    userAlreadyExists(user.uid).then((exists) => {
-      let promise = new Promise((resolve) => { resolve(); });
-      if (!exists)
-        promise = addNewUser(user);
-
-      promise.then(() => {
-        getUser(user.uid).then((result) => {
-          store.dispatch(fetchUser(result));
-          store.dispatch(startFetchRandomWord(result));
-          store.dispatch(login(user))
-
+    promise.then(() => {
+      store.dispatch(startFetchUser(userUID)).then(() => {
+        const resultUser = store.getState().user;
+        Promise.all([store.dispatch(login(resultUser)), store.dispatch(startFetchRandomWord(resultUser)),]).then(() => {
+          
           renderApp();
           if (history.location.pathname === '/') {
             history.push('/dashboard');
           }
 
-
-        });
-      })
+        })
+      });
     })
+  })
+}
+
+firebase.auth().onAuthStateChanged((user) => {
+
+  console.log("user", user);
+  if (user) {
+    init(user);
   } else {
     store.dispatch(logout());
     renderApp();
