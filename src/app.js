@@ -27,9 +27,6 @@ const jsx = (
 );
 let hasRendered = false;
 
-// let excludeWords = (store.getState().user.words || []).map((w) => w.name);
-// 
-
 const renderApp = () => {
   if (!hasRendered) {
     ReactDOM.render(jsx, document.getElementById('app'));
@@ -37,7 +34,7 @@ const renderApp = () => {
   }
 };
 
-ReactDOM.render(jsx, document.getElementById('app'));
+ReactDOM.render(<LoadingPage/>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
   let userExists = false;
@@ -54,10 +51,10 @@ firebase.auth().onAuthStateChanged((user) => {
         getUser(user.uid).then((result) => {
           store.dispatch(fetchUser(result));
           store.dispatch(startFetchRandomWord(result));
+          store.dispatch(login(user))
 
           renderApp();
           if (history.location.pathname === '/') {
-            console.log("here");
             history.push('/dashboard');
           }
 

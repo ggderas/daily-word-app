@@ -10,7 +10,7 @@ export const userAlreadyExists = (uid) => {
 }
 
 export const addNewUser = (user) => {
-    database.ref('/users/' +  user.uid).set({
+    return database.ref('/users/' +  user.uid).set({
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
@@ -22,7 +22,9 @@ export const getUser = (uid) =>  {
     return new Promise((resolve) =>  {
         database.ref('/users/' + uid).once('value').then((snapshot) => { 
             let user = snapshot.val();
-            user.words  = Object.values(user.words || {});
+
+            if(user)
+                user.words  = Object.values(user.words || {});
 
 
             resolve(user);

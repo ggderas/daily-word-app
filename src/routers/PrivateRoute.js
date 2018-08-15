@@ -20,8 +20,11 @@ export const PrivateRoute = ({
     )} />
   );
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: !!state.user.email
-});
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: !!state.auth.uid
+  }
+}
 
 export default connect(mapStateToProps)(PrivateRoute);
