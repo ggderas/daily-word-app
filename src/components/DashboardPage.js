@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 
 import WordOfDay from './dashboard/WordOfDay';
 import TopWords from './dashboard/TopWords';
+import TopFiveUsers from './dashboard/TopFiveUsers';
 
 
 const DashboardPage = () => (
   <div>
     <WordOfDay/>
+    <TopFiveUsers/>
     <TopWords/>
   </div>
 );

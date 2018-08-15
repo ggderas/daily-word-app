@@ -40,6 +40,23 @@ export const getUser = (uid) =>  {
     })
 }
 
+export const getAll = () => {
+    return new Promise((resolve) =>  {
+        database.ref('/users/').once('value').then((snapshot) => { 
+            let users = [];
+            snapshot.forEach((childSnapshot) => {
+                let user = childSnapshot.val()
+                if(user)
+                    user.words  = Object.values(user.words || {});
+                    
+                users.push(user);
+            })
+
+            resolve(users);
+        });
+    })    
+}
+
 export const learnWord = ({uid}, word) => {
     return new Promise((resolve) =>  {
         let wordObject = { name: word, learnedDate: moment().toDate().getTime() };

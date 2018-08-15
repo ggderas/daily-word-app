@@ -1,4 +1,4 @@
-import { getUser } from '../datasources/users';
+import { getUser, getAll } from '../datasources/users';
 
 const fetchUser = (user) => ({
     type: 'FETCH_USER',
