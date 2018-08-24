@@ -17,8 +17,13 @@ const getLastFiveWordsLearned = (words) => {
 
 const TopWords = ({ words = [] }) => (
   <Container>
-    <Container>
-      <List>
+
+    <Container textAlign="center">
+      <Label as='a' tag color="teal">Your Last Words Learned</Label>
+    </Container>
+
+    <Container style={{marginTop: "1.2em"}}>
+      <List ordered>
         {
           words.map((w) => {
             return (

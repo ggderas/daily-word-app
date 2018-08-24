@@ -38,7 +38,7 @@ class TopFiveUsers extends React.Component {
                 </Header>
               </div>
 
-              <List ordered textAlign="center">
+              <List ordered>
                 {
                   users.map((u, key) => {
                     return (
@@ -46,6 +46,7 @@ class TopFiveUsers extends React.Component {
                         <Image avatar src={u.photoURL} />
                         <List.Content>
                           <List.Header>{u.displayName}</List.Header>
+                          <List.Description>Learned {u.words.length > 1 ? (u.words.length + " words") : (u.words.length + " word")}</List.Description>
                         </List.Content>
                       </List.Item>
                     )

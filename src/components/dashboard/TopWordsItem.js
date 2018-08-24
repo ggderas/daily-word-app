@@ -12,13 +12,11 @@ class TopWordsItem extends React.Component {
         let popupOverContent = `Your learned this one on ${moment(word.learnedDate).format("MMM Do YY")}`;
 
         return (
-            <Container textAlign="center" style={{ marginTop: "0.5em" }}>
-                <List.Item >
-                    <List.Header onClick={this.onWordClick.bind(this)}>
-                        <Popup trigger={<Label as="a" color="teal">{word.name}</Label>} content={popupOverContent} />
-                    </List.Header>
-                </List.Item>
-            </Container>
+            <List.Item >
+                <List.Header onClick={this.onWordClick.bind(this)}>
+                    <Popup trigger={<Label as="a">{word.name}</Label>} content={popupOverContent} />
+                </List.Header>
+            </List.Item>
         )
     }
 
