@@ -2,27 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-
 import _ from 'underscore';
 import WordDetailDefinition from './WordDetailDefinition';
-
 import { learnWord } from '../../datasources/users';
 import { saveUser } from '../../actions/user';
+import { Tab, Container, Step, Header, Icon, Label, Grid, Segment, Button } from 'semantic-ui-react';
 
-import { Tab, Container, Step, Header, Icon, Label, Grid } from 'semantic-ui-react';
+const square = { width: 175, height: 175 }
 
 class WordDetail extends React.Component {
     state = {
         keyDefinitionVisible: 0
-    }
-
-    onDefinitionClick(key) {
-        this.setState({ keyDefinitionVisible: key });
-    }
-
-    getVisibleDefinition = () => {
-        let wordDefinition = _.find(this.props.word.results, (item, key) => key === this.state.keyDefinitionVisible);
-        return <WordDetailDefinition wordDefinition={wordDefinition} />
     }
 
     onLearnWord = () => {
@@ -60,9 +50,9 @@ class WordDetail extends React.Component {
 
         return (
             <Container style={{marginTop: "5em"}}>
-                <Container textAlign="center">
+                <Container>
                     <Grid>
-                        <Grid.Column>
+                        <Grid.Column textAlign="center">
                             <Header as='h2' icon textAlign='center'>
                                 <Icon name='book' circular color="black" />
                                 <Header.Content>{word.word}</Header.Content>
@@ -70,24 +60,27 @@ class WordDetail extends React.Component {
                             </Header>    
                         </Grid.Column>
                     </Grid>
+                    {
+                        this.userAlreadyLearnedThisWord() ? (
+                            <Grid>
+                                <Grid.Column textAlign="right">
+                                    <Label tag color="orange">You learned this word on {moment(learnedWord.learnedDate).format("LL")}</Label>
+                                </Grid.Column>
+                            </Grid>    
+                        ) : (
+                            <Grid>
+                                <Grid.Column textAlign="right">
+                                    <Button onClick={this.onLearnWord.bind(this)} basic color='blue'>I have learned this word!</Button>
+                                </Grid.Column>
+                            </Grid>                                
+                            
+                        )
+                    }                
                 </Container>
 
                 <Tab menu={{ secondary: true, pointing: true }} panes={this.getTabPanes()} />  
 
             </Container>
-
-                // <div>
-                //     <h1>{word.word}</h1>
-                //     <h5></h5>
-                // </div>
-
-                // {
-                //     this.userAlreadyLearnedThisWord() && (
-                //         <div>
-                //             <h3>You learned this word on {moment(learnedWord.learnedDate).format("LL")}</h3>
-                //         </div>
-                //     )
-                // }
 
                 // {
                 //     !this.userAlreadyLearnedThisWord() && (
