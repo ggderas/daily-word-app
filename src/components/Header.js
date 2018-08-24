@@ -7,16 +7,18 @@ import {
   Container,
   Header as SemanticUIHeader,
   Image,
-  Menu, 
+  Menu,
 } from 'semantic-ui-react'
 
 export const Header = ({ startLogout, user }) => (
   <div>
     <Menu fixed='top' inverted>
       <Container>
-        <Menu.Item as='a'>Home</Menu.Item>
+        <Menu.Item as='a'>
+          <Link to="/">Home</Link>
+        </Menu.Item>
         <Menu.Item as='a' header>
-          {  <Image size='mini' src='../../public/images/favicon.png' style={{ marginRight: '1.5em' }} /> } 
+          <Image size='mini' src='../../public/images/favicon.png' style={{ marginRight: '1.5em' }} />
           Hi {user.displayName}!
         </Menu.Item>
       </Container>
