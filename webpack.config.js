@@ -40,6 +40,12 @@ module.exports = (env) => {
               options: {
                 sourceMap: true
               }
+            },
+            {
+              loader: 'style-loader',
+              options: {
+                sourceMap: true
+              }
             }
           ]
         })

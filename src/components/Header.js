@@ -3,21 +3,29 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 
+import {
+  Container,
+  Header as SemanticUIHeader,
+  Image,
+  Menu, 
+} from 'semantic-ui-react'
+
 export const Header = ({ startLogout, user }) => (
-  <header className="header">
-    <div className="content-container">
-      <div className="header__content">
-        <Link className="header__title" to="/dashboard">
-           <h1>Hi {user.displayName}!</h1>
-        </Link>
-        <button className="button button--link" onClick={startLogout}>Logout</button>
-      </div>
-    </div>
-  </header>
-);
+  <div>
+    <Menu fixed='top' inverted>
+      <Container>
+        <Menu.Item as='a'>Home</Menu.Item>
+        <Menu.Item as='a' header>
+          {  <Image size='mini' src='../../public/images/favicon.png' style={{ marginRight: '1.5em' }} /> } 
+          Hi {user.displayName}!
+        </Menu.Item>
+      </Container>
+    </Menu>
+  </div>
+)
 
 const mapStateToProps = (state, props) => ({
-    user: state.user
+  user: state.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
