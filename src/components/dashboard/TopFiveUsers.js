@@ -42,7 +42,7 @@ class TopFiveUsers extends React.Component {
                 {
                   users.map((u, key) => {
                     return (
-                      <List.Item>
+                      <List.Item key={key}>
                         <Image avatar src={u.photoURL} />
                         <List.Content>
                           <List.Header>{u.displayName}</List.Header>

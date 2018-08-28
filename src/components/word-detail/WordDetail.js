@@ -19,6 +19,8 @@ class WordDetail extends React.Component {
         const { user, word, onSaveUser } = this.props;
         learnWord(user, word.word).then((result) => {
             user.words.push(result);
+            user.hasAlreadyLearnedAWordToday = true;
+
             onSaveUser(user);
         })
     }
@@ -46,7 +48,6 @@ class WordDetail extends React.Component {
     render() {
         let { word, user } = this.props;
         let learnedWord  = _.find(user.words || [], (w) => w.name === word.word);
-
 
         return (
             <Container style={{marginTop: "5em"}}>

@@ -26,7 +26,7 @@ class WordOfDay extends React.Component {
                 <div>
                     <Grid>
                         <Grid.Column>
-                            <Label as='a' color='red' ribbon><h1>Your daily word</h1></Label>
+                            <Label color='red' ribbon><h1>Your daily word</h1></Label>
                             {
                                 user.hasAlreadyLearnedAWordToday ? (
                                     <Container style={{ marginTop: '1em' }} textAlign="center">

@@ -19,7 +19,7 @@ const TopWords = ({ words = [] }) => (
   <Container>
 
     <Container textAlign="center">
-      <Label as='a' tag color="teal">Your Last Words Learned</Label>
+      <Label  tag color="teal">Your Last Words Learned</Label>
     </Container>
 
     <Container style={{marginTop: "1.2em"}}>

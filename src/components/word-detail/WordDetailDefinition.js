@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid, Image, Segment, Label, Container, Header, Divider } from 'semantic-ui-react';
 
 const WordDetailDefinition = ({ wordDefinition }) => (
