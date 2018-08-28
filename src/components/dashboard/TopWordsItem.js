@@ -4,12 +4,13 @@ import moment from 'moment';
 
 import { FetchWordDetails } from '../../words-api/WordsApi';
 import { List, Label, Container, Popup } from 'semantic-ui-react';
+import { getRelativeDate } from '../../helpers/moment-helper';
 
 
 class TopWordsItem extends React.Component {
     render() {
         let { word } = this.props;
-        let popupOverContent = `Your learned this one on ${moment(word.learnedDate).format("MMM Do YY")}`;
+        let popupOverContent = `Your learned this one ${getRelativeDate(word.learnedDate)}`;
 
         return (
             <List.Item >

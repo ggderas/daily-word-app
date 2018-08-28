@@ -6,6 +6,7 @@ import _ from 'underscore';
 import WordDetailDefinition from './WordDetailDefinition';
 import { learnWord } from '../../datasources/users';
 import { saveUser } from '../../actions/user';
+import { getRelativeDate } from '../../helpers/moment-helper';
 import { Tab, Container, Step, Header, Icon, Label, Grid, Segment, Button } from 'semantic-ui-react';
 
 const square = { width: 175, height: 175 }
@@ -65,7 +66,7 @@ class WordDetail extends React.Component {
                         this.userAlreadyLearnedThisWord() ? (
                             <Grid>
                                 <Grid.Column textAlign="right">
-                                    <Label tag color="orange">You learned this word on {moment(learnedWord.learnedDate).format("LL")}</Label>
+                                    <Label tag color="orange">You learned this word {getRelativeDate(learnedWord.learnedDate)}</Label>
                                 </Grid.Column>
                             </Grid>    
                         ) : (
