@@ -28,7 +28,7 @@ class LoginPage extends React.Component {
             marginTop: false ? '0.5em' : '1.5em',
           }}
         />
-        <Button onClick={() => startLogin()} primary size='huge'>
+        <Button onClick={this.props.startLogin} primary size='huge'>
           Login with Google
       <Icon name='right arrow' />
         </Button>
