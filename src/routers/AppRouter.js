@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 
-import WordDetail from '../components/word-detail/wordDetail';
+import WordDetail from '../components/word-detail/WordDetail';
 
 export const history = createHistory();
 
