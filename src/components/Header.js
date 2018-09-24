@@ -18,9 +18,13 @@ export const Header = ({ startLogout, user }) => (
           <Link to="/">Home</Link>
         </Menu.Item>
         <Menu.Item as='a' header>
-          <Image size='mini' src='../../public/images/favicon.png' style={{ marginRight: '1.5em' }} />
           Hi {user.displayName}!
         </Menu.Item>
+        <Menu.Item
+          position="right"
+          name='logout'
+          onClick={startLogout}
+        />
       </Container>
     </Menu>
   </div>

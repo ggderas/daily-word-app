@@ -61,8 +61,6 @@ const init = (user) => {
 }
 
 firebase.auth().onAuthStateChanged((user) => {
-
-  console.log("user", user);
   if (user) {
     init(user);
   } else {
