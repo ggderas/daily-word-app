@@ -5,14 +5,15 @@ import _ from 'underscore';
 
 import { startFetchAllUsers } from '../../actions/topUsers'
 
-import { Header, Icon, List, Image } from 'semantic-ui-react';
+import { Header, Icon, List, Image, Container } from 'semantic-ui-react';
 
 const getTopFiveUsers = (users) => {
-  let topFiveUsers = _.sortBy(users, (u) => (u.words || []).length);
+  let topFiveUsers = _.filter(users, (u) => u.words.length > 0);
+  topFiveUsers = _.sortBy(topFiveUsers, (u) => (u.words || []).length);
   topFiveUsers = _.first(topFiveUsers, 5).reverse();
 
   return topFiveUsers.map((t) => {
-    const lastLearnedWord = _.first(((_.sortBy(t.words, (w) => (w.learnedDate))).reverse()));
+    const lastLearnedWord = _.first(((_.sortBy(t.words, (w) => (w.learnedDate))).reverse())) || {};
 
     return { ...t, lastLearnedDate: lastLearnedWord.learnedDate };
   })
@@ -38,21 +39,30 @@ class TopFiveUsers extends React.Component {
                 </Header>
               </div>
 
-              <List ordered>
-                {
-                  users.map((u, key) => {
-                    return (
-                      <List.Item key={key}>
-                        <Image avatar src={u.photoURL} />
-                        <List.Content>
-                          <List.Header>{u.displayName}</List.Header>
-                          <List.Description>Learned {u.words.length > 1 ? (u.words.length + " words") : (u.words.length + " word")}</List.Description>
-                        </List.Content>
-                      </List.Item>
-                    )
-                  })
-                }
-              </List>
+              {
+                users.length === 0 ? (
+                  <Container style={{ marginTop: '1em' }} textAlign="center">
+                    <h4>You can be the first user here! Start learning now!</h4>
+                  </Container>
+                ) : (
+                    <List ordered>
+                      {
+                        users.map((u, key) => {
+                          return (
+                            <List.Item key={key}>
+                              <Image avatar src={u.photoURL} />
+                              <List.Content>
+                                <List.Header>{u.displayName}</List.Header>
+                                <List.Description>Learned {u.words.length > 1 ? (u.words.length + " words") : (u.words.length + " word")}</List.Description>
+                              </List.Content>
+                            </List.Item>
+                          )
+                        })
+                      }
+                    </List>
+                  )
+              }
+
             </div>
           )
         }
